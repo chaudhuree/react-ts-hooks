@@ -49,14 +49,15 @@ export default UseContextComponent;
 
 // note: context api system===>
 
+// 1.
 // createContext k import kore nite hobe
 // createContext dea kata context create kore nite  hobe
 // const UserContext = createContext<PropsType>(initialState);
-
+// 2.
 // akta function create korte hobe jeta children receive korbe
 // oitay value o pahty dibo
 // UseContextComponent function aikhane wrapper
-
+// 3.
 // then root k context.provider dea wrap kore dibo
 // then akta jayga theke useContextdea data nea nibo
 // ConsumerComponent tai last component jeta data receive korlo
