@@ -5,7 +5,7 @@ function UseRefComponent() {
 
   return (
     <div>
-      <input ref={inputRef} />;
+      <input ref={inputRef} />
       <button
         onClick={() => {
           inputRef.current?.focus();

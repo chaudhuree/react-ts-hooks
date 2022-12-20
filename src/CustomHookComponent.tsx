@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from "react";
+import { useEffect, useState } from "react";
 
 export interface Beverage {
   name: string;
@@ -13,19 +13,21 @@ export interface Beverage {
   level: number;
 }
 
-function useFetchData<Payload>(
-  url: string
-): {
-  data: Payload | null;
+//docs: a way to declare function in ts way
+// function add(x: number, y: number): number {
+//   return x + y;
+// }
+function useFetchData(url: string): {
+  data: Beverage[] | null;
   done: boolean;
 } {
-  const [data, dataSet] = useState<Payload | null>(null);
+  const [data, dataSet] = useState<Beverage[] | null>(null);
   const [done, doneSet] = useState(false);
 
   useEffect(() => {
     fetch(url)
       .then((resp) => resp.json())
-      .then((d: Payload) => {
+      .then((d: Beverage[]) => {
         dataSet(d);
         doneSet(true);
       });
@@ -38,17 +40,17 @@ function useFetchData<Payload>(
 }
 
 function CustomHookComponent() {
-  const { data } = useFetchData<Beverage[]>("/hv-taplist.json");
-  const portlandTaps = useMemo(
-    () =>
-      (data || []).filter((bev) => bev.producerLocation.includes("Portland")),
-    [data]
-  );
+  const { data, done } = useFetchData("/hv-taplist.json");
 
   return (
     <div>
-      {portlandTaps.length && (
-        <img src={portlandTaps![1].logo} alt="Beverage logo" />
+      {done && (
+        // <img src={data![0].logo} alt="Beverage logo" />
+        <h4>
+          <p>
+            Beverage Name: <i>{data![0].beverageName}</i>
+          </p>
+        </h4>
       )}
     </div>
   );
