@@ -5,12 +5,13 @@ type PropsType = {
   first: string;
   last: string;
 };
-const initialState: PropsType = {
-  first: "",
-  last: "",
-};
+// const initialState: PropsType = {
+//   first: "",
+//   last: "",
+// };
 // const UserContext = createContext<PropsType>(initialState);
-const UserContext = createContext<PropsType>(initialState);
+const UserContext = createContext<PropsType | null>(null);
+// const UserContext = createContext({} as PropsType);
 
 // wrapper of the root
 function UseContextComponent() {
@@ -37,12 +38,12 @@ function UseContextComponent() {
 }
 // data is received here
 function ConsumerComponent() {
-  const user = useContext<PropsType>(UserContext);
+  const user = useContext(UserContext);
 
   return (
     <div>
-      <div>First: {user.first}</div>
-      <div>Last: {user.last}</div>
+      <div>First: {user?.first}</div>
+      <div>Last: {user?.last}</div>
     </div>
   );
 }
@@ -53,7 +54,13 @@ export default UseContextComponent;
 // 1.
 // createContext k import kore nite hobe
 // createContext dea akta context create kore nite  hobe
-// const UserContext = createContext<PropsType>(initialState);
+// akhn jodi initial value ki hobe ta jana na thake tahole amra null type dite pari..kintu jokhn provider dea value pass korte hobe tokhn type chaibe. tai amader union (|) dea null er sathe ki value pass korlamsetar type o die dite hobe.
+// aikhane dekha jaitice j provider a value dewar time a user pathano hoyeche
+// oitar value amra jani Propstype. so union hishebe aitai dea dite hobe
+
+// const UserContext = createContext<PropsType | null>(null⭐⭐);
+// alternatively ai syntext o dite pari
+// const UserContext = createContext({} as PropsType);
 // 2.
 // akta function create korte hobe jeta children receive korbe
 // oitay value o pahty dibo
