@@ -1,12 +1,16 @@
 import { createContext } from "react";
 
-const initialState = {
+type Props = {
+  first: string;
+  last: string;
+};
+const initialState: Props = {
   first: "Jack",
   last: "Herrington",
 };
 
-export type UserState = typeof initialState;
+export type PropsType = Props;
 
-const context = createContext<typeof initialState>(initialState);
+const context = createContext<Props>(initialState);
 
 export default context;

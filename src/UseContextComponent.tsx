@@ -1,20 +1,19 @@
-import { useState, useContext } from "react";
+import { createContext, useContext, useState } from "react";
 
-import UserContext, { UserState } from "./store";
+// type define
+type PropsType = {
+  first: string;
+  last: string;
+};
+const initialState: PropsType = {
+  first: "",
+  last: "",
+};
+const UserContext = createContext<PropsType>(initialState);
 
-function ConsumerComponent() {
-  const user = useContext<UserState>(UserContext);
-
-  return (
-    <div>
-      <div>First: {user.first}</div>
-      <div>Last: {user.last}</div>
-    </div>
-  );
-}
-
+// wrapper of the root
 function UseContextComponent() {
-  const [user, userSet] = useState<UserState>({
+  const [user, userSet] = useState<PropsType>({
     first: "Jane",
     last: "Smith",
   });
@@ -35,5 +34,29 @@ function UseContextComponent() {
     </UserContext.Provider>
   );
 }
+// data is received here
+function ConsumerComponent() {
+  const user = useContext<PropsType>(UserContext);
 
+  return (
+    <div>
+      <div>First: {user.first}</div>
+      <div>Last: {user.last}</div>
+    </div>
+  );
+}
 export default UseContextComponent;
+
+// note: context api system===>
+
+// createContext k import kore nite hobe
+// createContext dea kata context create kore nite  hobe
+// const UserContext = createContext<PropsType>(initialState);
+
+// akta function create korte hobe jeta children receive korbe
+// oitay value o pahty dibo
+// UseContextComponent function aikhane wrapper
+
+// then root k context.provider dea wrap kore dibo
+// then akta jayga theke useContextdea data nea nibo
+// ConsumerComponent tai last component jeta data receive korlo
